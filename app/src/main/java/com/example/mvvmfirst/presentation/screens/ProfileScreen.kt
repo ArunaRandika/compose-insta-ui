@@ -1,4 +1,4 @@
-package com.example.mvvmfirst
+package com.example.mvvmfirst.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -35,6 +35,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mvvmfirst.R
+import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun ProfileScreen() {
