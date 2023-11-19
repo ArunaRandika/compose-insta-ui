@@ -1,15 +1,14 @@
 package com.example.mvvmfirst
 
-import android.graphics.drawable.Icon
-import android.view.RoundedCorner
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -19,20 +18,17 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -59,8 +55,12 @@ fun ProfileScreen() {
             modifier = Modifier
                 .padding(10.dp)
         )
-
-        ActionButtons()
+        Spacer(modifier = Modifier.height(25.dp))
+        ButtonSection(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp)
+        )
 
 
     }
@@ -307,55 +307,90 @@ fun FollowersInfo(
 }
 
 @Composable
-fun ActionButtons() {
+fun ButtonSection(
+    modifier: Modifier = Modifier
+) {
+
+    val minWith = 95.dp
+    val height = 30.dp
+
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextButton(
-            onClick = { },
+        ActionButtons(
+            buttonText = "Following",
+            icon = Icons.Default.KeyboardArrowDown,
             modifier = Modifier
-                .padding(5.dp)
-                .weight(4f),
-            colors = ButtonDefaults.textButtonColors(Color.Gray),
-            shape = ButtonDefaults.outlinedShape
-        ) {
+                .defaultMinSize(minWith)
+                .height(height)
+        )
+        ActionButtons(
+            buttonText = "Message",
+            icon = null,
+            modifier = Modifier
+                .defaultMinSize(minWith)
+                .height(height)
+        )
+        ActionButtons(
+            buttonText = "Email",
+            icon = null,
+            modifier = Modifier
+                .defaultMinSize(minWith)
+                .height(height)
+        )
+        ActionButtons(
+            buttonText = null,
+            icon = Icons.Default.Phone,
+            modifier = Modifier
+                .defaultMinSize(minWith)
+                .height(height)
+        )
+
+
+    }
+}
+
+@Composable
+fun ActionButtons(
+    modifier: Modifier = Modifier,
+    buttonText: String? = null,
+    icon: ImageVector? = null
+) {
+
+    Row(
+        modifier = modifier
+            .clickable { }
+            .border(
+                width = 1.dp,
+                color = Color.LightGray,
+                shape = RoundedCornerShape(5.dp)
+
+            )
+            .padding(6.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        if (buttonText != null) {
             Text(
-                "Following",
-                color = Color.White
+                text = buttonText,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 14.sp
             )
-        }
-        TextButton(
-            onClick = { },
-            modifier = Modifier
-                .padding(5.dp)
-                .weight(4f),
-            colors = ButtonDefaults.textButtonColors(Color.Gray),
-            shape = ButtonDefaults.outlinedShape
-        ) {
-            Text(
-                "Message",
-                color = Color.White
-            )
-        }
-        TextButton(
-            onClick = { },
-            modifier = Modifier
-                .padding(5.dp)
-                .weight(1f),
-            colors = ButtonDefaults.textButtonColors(Color.Gray),
-            shape = ButtonDefaults.outlinedShape
-        ) {
-            Icon(
-                modifier = Modifier.size(15.dp),
-                painter = painterResource(id = R.drawable.add_friend),
-                contentDescription = "add friend ",
-            )
+
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "Add Friend",
+                    tint = Color.Black
+                )
+            }
         }
 
     }
+
+
 }
 
 
